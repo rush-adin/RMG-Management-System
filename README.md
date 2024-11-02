@@ -11,3 +11,6 @@ Key features of the system include:
 	•	Inventory Management: Maintains a robust inventory system for garments, including the ability to add, remove, and search for garments, ensuring that stock levels are accurately tracked.
 
 This system aims to streamline operations, improve inventory accuracy, and enhance customer satisfaction within the RMG sector. By leveraging object-oriented programming principles, the application ensures scalability and maintainability, making it suitable for future enhancements.
+
+
+#THIS IS AN INCOMPLETE LAZY WORKED PROJECT FOR ASSIGNMENT
