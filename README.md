@@ -13,4 +13,4 @@ Key features of the system include:
 This system aims to streamline operations, improve inventory accuracy, and enhance customer satisfaction within the RMG sector. By leveraging object-oriented programming principles, the application ensures scalability and maintainability, making it suitable for future enhancements.
 
 
-#THIS IS AN INCOMPLETE LAZY WORKED PROJECT FOR ASSIGNMENT
+#THIS IS AN INCOMPLETE LAZY WORK PROJECT FOR ASSIGNMENT
