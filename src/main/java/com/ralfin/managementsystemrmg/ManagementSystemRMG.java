@@ -15,6 +15,15 @@ class Garment {
     public double price;
     public int stockQuantity;
 
+    Garment(String id, String name, String description, String color, double price, int stockQuantity) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.color = color;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
     void updateStock(int quantity) {
         stockQuantity = quantity;
     }
@@ -32,6 +41,13 @@ class Fabric {
     public String color;
     public double pricePerMeter;
 
+    Fabric(String id, String type, String color, double pricePerMeter) {
+        this.id = id;
+        this.type = type;
+        this.color = color;
+        this.pricePerMeter = pricePerMeter;
+    }
+
     public double calculateCost(double meters) {
         double cost = pricePerMeter * meters;
         return cost;
@@ -44,6 +60,12 @@ class Supplier {
     public String name;
     public String contactInfo;
     private List<Fabric> suppliedFabrics = new ArrayList<>();
+
+    Supplier(String id, String name, String contactInfo) {
+        this.id = id;
+        this.name = name;
+        this.contactInfo = contactInfo;
+    }
 
     public void addFabric(Fabric fabric) {
         suppliedFabrics.add(fabric);
@@ -61,6 +83,12 @@ class Order {
     public int customerID;
     public List<Garment> garments = new ArrayList<>();
     public double totalAmount;
+
+    Order(String orderId, Date orderDate, int customerID) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.customerID = customerID;
+    }
 
     public void addGarment(Garment garment) {
         garments.add(garment);
@@ -99,6 +127,13 @@ class Customer {
     public String phone;
     private List<Order> orders = new ArrayList<>();
 
+    Customer(String customerId, String name, String email, String phone) {
+        this.customerId = customerId;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public void placeOrder(Order order) {
         orders.add(order);
         order.printOrderDetails();
@@ -107,7 +142,7 @@ class Customer {
     }
 
     public List<Order> viewOrders() {
-        return null;
+        return orders;
     }
 }
 
@@ -218,9 +253,10 @@ public class ManagementSystemRMG {
             clear();
 
             switch (choice) {
-                case 1:
-                    // Code to add a new garment
-                    break;
+                case 1: {
+                    //Inventory inventory = new Inventory();
+
+                }
                 case 2:
                     // Code to update a garment
                     break;
