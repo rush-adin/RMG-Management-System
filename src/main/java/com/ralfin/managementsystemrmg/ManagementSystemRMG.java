@@ -1,4 +1,4 @@
-package com.ralfin.managementsystemrmg;
+//package com.ralfin.managementsystemrmg;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +15,7 @@ class Garment {
     public double price;
     public int stockQuantity;
 
-    Garment(String id, String name, String description, String color, double price, int stockQuantity) {
+    Garment(String id, String name, String description, String size, String color, double price, int stockQuantity) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -152,8 +152,33 @@ class Inventory {
     List<Supplier> suppliers = new ArrayList<>();
     List<Customer> customers = new ArrayList<>();
 
-    void addGarment(Garment garment) {
+    Scanner scan = new Scanner(System.in);
+
+    void addGarment() {
+        String id, name, description, size, color;
+        double price;
+        int quantity;
+        System.out.print("Enter Garment's id: ");
+        id = scan.nextLine();
+        System.out.print("Enter Garment's name: ");
+        name = scan.nextLine();
+        System.out.print("Enter Short description: ");
+        description = scan.nextLine();
+        System.out.print("Enter Size: ");
+        size = scan.nextLine();
+        System.out.print("Enter Color: ");
+        color = scan.nextLine();
+        System.out.print("Enter Price: ");
+        price = scan.nextDouble();
+        System.out.print("Enter Quantity: ");
+        quantity = scan.nextInt();
+        Garment garment = new Garment(id, name, description, size, color, price, quantity);
         garments.add(garment);
+        System.out.println();
+        System.out.println("** New Garment added to the inventory **");
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
     }
 
     void removeGarment(String id) {
@@ -170,12 +195,23 @@ class Inventory {
     }
 }
 
-public class ManagementSystemRMG {
+class Use {
 
     public static void clear() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+    public static void pause() {
+        try {
+            System.in.read();
+        } catch (Exception e) {
+            System.out.println("Exception occured!");
+        }
+    }
+}
+
+public class ManagementSystemRMG {
 
     private static String line = "-".repeat(39);
     private static Scanner scan = new Scanner(System.in);
@@ -195,7 +231,7 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Input ");
             int choice = scan.nextInt();
-            clear();
+            Use.clear();
 
             switch (choice) {
                 case 1: {
@@ -225,7 +261,7 @@ public class ManagementSystemRMG {
 
                 case 6:
                     System.out.println("Exiting the system. Goodbye!");
-                    System.exit(0);  // Exit the program
+                    System.exit(0); // Exit the program
                     break;
 
                 default:
@@ -236,7 +272,7 @@ public class ManagementSystemRMG {
 
     }
 
-    //Manage Garments
+    // Manage Garments
     private static void mngGar() {
         while (true) {
             System.out.println(line);
@@ -250,11 +286,12 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Enter ");
             int choice = scan.nextInt();
-            clear();
+            Use.clear();
 
             switch (choice) {
                 case 1: {
-                    //Inventory inventory = new Inventory();
+                    Inventory inventory = new Inventory();
+                    inventory.addGarment();
 
                 }
                 case 2:
@@ -276,7 +313,7 @@ public class ManagementSystemRMG {
         }
     }
 
-    //Manage Suppliers
+    // Manage Suppliers
     private static void mngSup() {
         while (true) {
             System.out.println(line);
@@ -290,7 +327,7 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Enter ");
             int choice = scan.nextInt();
-            clear();
+            Use.clear();
 
             switch (choice) {
                 case 1:
@@ -315,7 +352,7 @@ public class ManagementSystemRMG {
         }
     }
 
-    //Manage Customers
+    // Manage Customers
     private static void mngCust() {
         while (true) {
             System.out.println(line);
@@ -329,7 +366,7 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Enter ");
             int choice = scan.nextInt();
-            clear();
+            Use.clear();
 
             switch (choice) {
                 case 1:
@@ -367,7 +404,7 @@ public class ManagementSystemRMG {
             System.out.print("Enter your choice: ");
 
             int choice = scan.nextInt();
-            clear();
+            Use.clear();
 
             switch (choice) {
                 case 1:
@@ -401,7 +438,7 @@ public class ManagementSystemRMG {
             System.out.print("Enter your choice: ");
 
             int choice = scan.nextInt();
-            clear();
+            Use.clear();
 
             switch (choice) {
                 case 1:
