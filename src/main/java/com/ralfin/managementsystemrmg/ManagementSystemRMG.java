@@ -138,9 +138,8 @@ class Inventory {
 public class ManagementSystemRMG {
 
     public static void clear() {
-        for (int i = 0; i < 100; i++) {
-            System.out.println();
-        }
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     private static String line = "-".repeat(39);
@@ -161,7 +160,7 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Input ");
             int choice = scan.nextInt();
-            //clear();
+            clear();
 
             switch (choice) {
                 case 1: {
@@ -216,7 +215,7 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Enter ");
             int choice = scan.nextInt();
-            //Clear();
+            clear();
 
             switch (choice) {
                 case 1:
@@ -255,7 +254,7 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Enter ");
             int choice = scan.nextInt();
-            // Clear();
+            clear();
 
             switch (choice) {
                 case 1:
@@ -294,7 +293,7 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Enter ");
             int choice = scan.nextInt();
-            // Clear();
+            clear();
 
             switch (choice) {
                 case 1:
@@ -332,7 +331,7 @@ public class ManagementSystemRMG {
             System.out.print("Enter your choice: ");
 
             int choice = scan.nextInt();
-            // Clear(); // Uncomment if you want to clear the screen before showing the menu
+            clear();
 
             switch (choice) {
                 case 1:
@@ -366,7 +365,7 @@ public class ManagementSystemRMG {
             System.out.print("Enter your choice: ");
 
             int choice = scan.nextInt();
-            // Clear(); // Uncomment if you want to clear the screen before showing the menu
+            clear();
 
             switch (choice) {
                 case 1:
