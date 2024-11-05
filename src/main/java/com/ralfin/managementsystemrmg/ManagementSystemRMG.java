@@ -24,10 +24,6 @@ class Garment {
         this.stockQuantity = stockQuantity;
     }
 
-    void updateStock(int quantity) {
-        stockQuantity = quantity;
-    }
-
     double calculateDiscountPrice(double discountPercentage) {
         double discount = price * (discountPercentage / 100);
         return discount;
@@ -181,8 +177,48 @@ class Inventory {
         Use.clear();
     }
 
+    void updateGarment() {
+        System.out.println("Enter the garment ID: ");
+        scan.nextLine();
+        String id = scan.nextLine();
+        for (Garment garment : garments) {
+            if (garment.id.equals(id)) {
+                System.out.println("Updated Price: ");
+                garment.price = scan.nextDouble();
+                System.out.println("Updated Stock: ");
+                garment.stockQuantity = scan.nextInt();
+                int index = garments.indexOf(garment);
+                System.out.println("** Garment updated successfully **");
+                System.out.println("Press Enter to continue...");
+                Use.pause();
+                Use.clear();
+                return;
+            }
+        }
+        System.out.println("Item not found!");
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
+    }
+
     void removeGarment(String id) {
         garments.remove(id);
+    }
+
+    void display() {
+        for (Garment garment : garments) {
+            System.out.println("ID: " + garment.id);
+            System.out.println("Name: " + garment.name);
+            System.out.println(garment.description);
+            System.out.println("Size: " + garment.size);
+            System.out.println("Color: " + garment.color);
+            System.out.println("Price: " + garment.price);
+            System.out.println("Stocks remaining: " + garment.stockQuantity);
+            System.out.println();
+        }
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
     }
 
     Garment findGarment(String id) {
@@ -217,6 +253,7 @@ public class ManagementSystemRMG {
     private static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
+        Inventory inventory = new Inventory();
 
         while (true) {
             System.out.println(line);
@@ -235,7 +272,7 @@ public class ManagementSystemRMG {
 
             switch (choice) {
                 case 1: {
-                    mngGar();
+                    mngGar(inventory);
                     break;
                 }
 
@@ -273,7 +310,7 @@ public class ManagementSystemRMG {
     }
 
     // Manage Garments
-    private static void mngGar() {
+    private static void mngGar(Inventory inventory) {
         while (true) {
             System.out.println(line);
             System.out.println("|         ** Manage Garments **       |");
@@ -286,23 +323,25 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Enter ");
             int choice = scan.nextInt();
+            scan.nextLine();
             Use.clear();
 
             switch (choice) {
                 case 1: {
-                    Inventory inventory = new Inventory();
                     inventory.addGarment();
-
-                }
-                case 2:
-                    // Code to update a garment
                     break;
+                }
+                case 2: {
+                    inventory.updateGarment();
+                    break;
+                }
                 case 3:
                     // Code to delete a garment
                     break;
-                case 4:
-                    // Code to view all garments
+                case 4: {
+                    inventory.display();
                     break;
+                }
                 case 5:
                     // Back to main menu
                     return; // exits this inner menu loop
