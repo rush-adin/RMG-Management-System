@@ -229,19 +229,22 @@ class Inventory {
     }
 
     void display() {
-        for (Garment garment : garments) {
-            System.out.println("ID: " + garment.id);
-            System.out.println("Name: " + garment.name);
-            System.out.println(garment.description);
-            System.out.println("Size: " + garment.size);
-            System.out.println("Color: " + garment.color);
-            System.out.println("Price: " + garment.price);
-            System.out.println("Stocks remaining: " + garment.stockQuantity);
-            System.out.println();
+        if (garments.isEmpty()) {
+            System.out.println("No garments found.");
+            for (Garment garment : garments) {
+                System.out.println("ID: " + garment.id);
+                System.out.println("Name: " + garment.name);
+                System.out.println(garment.description);
+                System.out.println("Size: " + garment.size);
+                System.out.println("Color: " + garment.color);
+                System.out.println("Price: " + garment.price);
+                System.out.println("Stocks remaining: " + garment.stockQuantity);
+                System.out.println();
+            }
+            System.out.println("Press Enter to continue...");
+            Use.pause();
+            Use.clear();
         }
-        System.out.println("Press Enter to continue...");
-        Use.pause();
-        Use.clear();
     }
 
     void addSupplier() {
@@ -307,11 +310,98 @@ class Inventory {
     }
 
     void displaySuppliers() {
-        for (Supplier supplier : suppliers) {
-            System.out.println("ID: " + supplier.id);
-            System.out.println("Name: " + supplier.name);
-            System.out.println("Contact Info: " + supplier.contactInfo);
-            System.out.println();
+        if (suppliers.isEmpty()) {
+            System.out.println("No supplier found.");
+            for (Supplier supplier : suppliers) {
+                System.out.println("ID: " + supplier.id);
+                System.out.println("Name: " + supplier.name);
+                System.out.println("Contact Info: " + supplier.contactInfo);
+                System.out.println();
+            }
+            System.out.println("Press Enter to continue...");
+            Use.pause();
+            Use.clear();
+        }
+    }
+
+    void addCust() {
+        System.out.print("Enter Customer's ID: ");
+        String id = scan.nextLine();
+        System.out.print("Enter Customer's Name: ");
+        String name = scan.nextLine();
+        System.out.print("Enter Customer's Email: ");
+        String email = scan.nextLine();
+        System.out.print("Enter Customer's Phone: ");
+        String phone = scan.nextLine();
+
+        Customer customer = new Customer(id, name, email, phone);
+        customers.add(customer);
+        System.out.println();
+
+        System.out.println("** New Customer added **");
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
+    }
+
+    void updateCust() {
+        System.out.print("Enter Customer ID to update: ");
+        String id = scan.nextLine();
+
+        for (Customer customer : customers) {
+            if (customer.customerId.equals(id)) {
+                System.out.print("Enter Updated Name: ");
+                customer.name = scan.nextLine();
+                System.out.print("Enter Updated Email: ");
+                customer.email = scan.nextLine();
+                System.out.print("Enter Updated Phone: ");
+                customer.phone = scan.nextLine();
+                System.out.println();
+                System.out.println("** Customer updated successfully **");
+                System.out.println("Press Enter to continue...");
+                Use.pause();
+                Use.clear();
+                return;
+            }
+        }
+        System.out.println("** Customer not found **");
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
+    }
+
+    void deleteCust() {
+        System.out.print("Enter Customer ID to delete: ");
+        String id = scan.nextLine();
+        ListIterator<Customer> it = customers.listIterator();
+        boolean flag = true;
+        System.out.println();
+        while (it.hasNext()) {
+            if (it.next().customerId.equals(id)) {
+                it.remove();
+                System.out.println("** Customer removed **");
+                flag = false;
+                break;
+            }
+        }
+        if (flag)
+            System.out.println("** Customer not found **");
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
+    }
+
+    void viewCust() {
+        if (customers.isEmpty()) {
+            System.out.println("No customers found.");
+        } else {
+            for (Customer customer : customers) {
+                System.out.println("ID: " + customer.customerId);
+                System.out.println("Name: " + customer.name);
+                System.out.println("Email: " + customer.email);
+                System.out.println("Phone: " + customer.phone);
+                System.out.println();
+            }
         }
         System.out.println("Press Enter to continue...");
         Use.pause();
@@ -371,7 +461,7 @@ public class ManagementSystemRMG {
                 }
 
                 case 3: {
-                    mngCust();
+                    mngCust(inventory);
                     break;
                 }
 
@@ -484,7 +574,7 @@ public class ManagementSystemRMG {
     }
 
     // Manage Customers
-    private static void mngCust() {
+    private static void mngCust(Inventory inventory) {
         while (true) {
             System.out.println(line);
             System.out.println("|         ** Manage Customers **      |");
@@ -500,21 +590,24 @@ public class ManagementSystemRMG {
             Use.clear();
 
             switch (choice) {
-                case 1:
-                    // Code to add a new customer
+                case 1: {
+                    inventory.addCust();
                     break;
-                case 2:
-                    // Code to update a customer
+                }
+                case 2: {
+                    inventory.updateCust();
                     break;
-                case 3:
-                    // Code to delete a customer
+                }
+                case 3: {
+                    inventory.deleteCust();
                     break;
-                case 4:
-                    // Code to view all customers
+                }
+                case 4: {
+                    inventory.viewCust();
                     break;
+                }
                 case 5:
-                    // Back to main menu
-                    return; // exits this inner menu loop
+                    return;
                 default:
                     System.out.println("Invalid choice, please try again.");
                     break;
