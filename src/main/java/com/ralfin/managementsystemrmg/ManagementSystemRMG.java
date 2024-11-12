@@ -243,6 +243,80 @@ class Inventory {
         Use.pause();
         Use.clear();
     }
+
+    void addSupplier() {
+        String id, name, contactInfo;
+        System.out.print("Enter Supplier's id: ");
+        id = scan.nextLine();
+        System.out.print("Enter Supplier's name: ");
+        name = scan.nextLine();
+        System.out.print("Enter Supplier's contact info: ");
+        contactInfo = scan.nextLine();
+
+        Supplier supplier = new Supplier(id, name, contactInfo);
+        suppliers.add(supplier);
+
+        System.out.println("\n** New Supplier added to the list **");
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
+    }
+
+    void updateSupplier() {
+        System.out.println("Enter the supplier ID: ");
+        String id = scan.nextLine();
+        for (Supplier supplier : suppliers) {
+            if (supplier.id.equals(id)) {
+                System.out.println("Updated Name: ");
+                supplier.name = scan.nextLine();
+                System.out.println("Updated Contact Info: ");
+                supplier.contactInfo = scan.nextLine();
+
+                System.out.println("** Supplier updated successfully **");
+                System.out.println("Press Enter to continue...");
+                Use.pause();
+                Use.clear();
+                return;
+            }
+        }
+        System.out.println("Item not found!");
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
+    }
+
+    void removeSupplier() {
+        System.out.println("Enter supplier ID: ");
+        String id = scan.nextLine();
+        boolean flag = true;
+        ListIterator<Supplier> it = suppliers.listIterator();
+        while (it.hasNext()) {
+            if (it.next().id.equals(id)) {
+                it.remove();
+                System.out.println("** Supplier removed **");
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            System.out.println("** Item not found **");
+        }
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
+    }
+
+    void displaySuppliers() {
+        for (Supplier supplier : suppliers) {
+            System.out.println("ID: " + supplier.id);
+            System.out.println("Name: " + supplier.name);
+            System.out.println("Contact Info: " + supplier.contactInfo);
+            System.out.println();
+        }
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
+    }
 }
 
 class Use {
@@ -292,7 +366,7 @@ public class ManagementSystemRMG {
                 }
 
                 case 2: {
-                    mngSup();
+                    mngSup(inventory);
                     break;
                 }
 
@@ -359,8 +433,7 @@ public class ManagementSystemRMG {
                     break;
                 }
                 case 5:
-                    // Back to main menu
-                    return; // exits this inner menu loop
+                    return;
                 default:
                     System.out.println("Invalid choice, please try again.");
                     break;
@@ -369,7 +442,7 @@ public class ManagementSystemRMG {
     }
 
     // Manage Suppliers
-    private static void mngSup() {
+    private static void mngSup(Inventory inventory) {
         while (true) {
             System.out.println(line);
             System.out.println("|         ** Manage Suppliers **      |");
@@ -385,21 +458,24 @@ public class ManagementSystemRMG {
             Use.clear();
 
             switch (choice) {
-                case 1:
-                    // Code to add a new supplier
+                case 1: {
+                    inventory.addSupplier();
                     break;
-                case 2:
-                    // Code to update a supplier
+                }
+                case 2: {
+                    inventory.updateSupplier();
                     break;
-                case 3:
-                    // Code to delete a supplier
+                }
+                case 3: {
+                    inventory.removeSupplier();
                     break;
-                case 4:
-                    // Code to view all suppliers
+                }
+                case 4: {
+                    inventory.displaySuppliers();
                     break;
+                }
                 case 5:
-                    // Back to main menu
-                    return; // exits this inner menu loop
+                    return;
                 default:
                     System.out.println("Invalid choice, please try again.");
                     break;
