@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.ListIterator;
 
 class Garment {
 
@@ -151,6 +152,8 @@ class Inventory {
     Scanner scan = new Scanner(System.in);
 
     void addGarment() {
+        if (!garments.isEmpty())
+            scan.nextLine();
         String id, name, description, size, color;
         double price;
         int quantity;
@@ -178,8 +181,9 @@ class Inventory {
     }
 
     void updateGarment() {
+        if (!garments.isEmpty())
+            scan.nextLine(); // problematic
         System.out.println("Enter the garment ID: ");
-        scan.nextLine();
         String id = scan.nextLine();
         for (Garment garment : garments) {
             if (garment.id.equals(id)) {
@@ -201,8 +205,27 @@ class Inventory {
         Use.clear();
     }
 
-    void removeGarment(String id) {
-        garments.remove(id);
+    void removeGarment() {
+        if (!garments.isEmpty())
+            scan.nextLine();
+        System.out.println("Enter garment ID: ");
+        String id = scan.nextLine();
+        ListIterator<Garment> it = garments.listIterator();
+        int flag = 1;
+        while (it.hasNext()) {
+            if (it.next().id.equals(id)) {
+                it.remove();
+                System.out.println("** Garment removed **");
+                flag = 0;
+                break;
+            }
+        }
+        if (flag == 1) {
+            System.out.println("** Item not found **");
+        }
+        System.out.println("Press Enter to continue...");
+        Use.pause();
+        Use.clear();
     }
 
     void display() {
@@ -219,15 +242,6 @@ class Inventory {
         System.out.println("Press Enter to continue...");
         Use.pause();
         Use.clear();
-    }
-
-    Garment findGarment(String id) {
-        for (Garment g : garments) {
-            if (g.id == id) {
-                return g;
-            }
-        }
-        return null;
     }
 }
 
@@ -268,6 +282,7 @@ public class ManagementSystemRMG {
             System.out.println(line);
             System.out.print("Input ");
             int choice = scan.nextInt();
+            scan.nextLine();
             Use.clear();
 
             switch (choice) {
@@ -335,9 +350,10 @@ public class ManagementSystemRMG {
                     inventory.updateGarment();
                     break;
                 }
-                case 3:
-                    // Code to delete a garment
+                case 3: {
+                    inventory.removeGarment();
                     break;
+                }
                 case 4: {
                     inventory.display();
                     break;
